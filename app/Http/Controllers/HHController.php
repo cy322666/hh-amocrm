@@ -16,4 +16,9 @@ class HHController extends Controller
 //
 //        RespondSend::dispatch($respond);
     }
+
+    public function redirect(Request $request)
+    {
+        Log::info(__METHOD__, $request->toArray());
+    }
 }
