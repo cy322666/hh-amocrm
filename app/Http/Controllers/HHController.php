@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\RespondSend;
 use App\Models\Respond;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\Log;
 
 class HHController extends Controller
 {
@@ -13,6 +12,6 @@ class HHController extends Controller
     {
         $respond = Respond::query()->create($request->toArray());
 
-
+        RespondSend::dispatch($respond);
     }
 }
