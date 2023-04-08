@@ -9,7 +9,6 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\Log;
 
 class RespondSend implements ShouldQueue
 {
@@ -19,10 +18,6 @@ class RespondSend implements ShouldQueue
 
     public function handle()
     {
-        //TODO тут проверить как приходит ответ
-        Artisan::command("hh:respond-send $this->respond->id", function (int $result) {
-
-            Log::info(__METHOD__, [$result]);
-        });
+        Artisan::command("hh:respond-send $this->respond->id", function () {});
     }
 }

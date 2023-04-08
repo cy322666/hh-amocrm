@@ -16,6 +16,19 @@ return new class extends Migration
         Schema::create('responds', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->json('body');
+            $table->integer('status');
+            $table->string('webhook_id')->nullable();
+            $table->string('resume_id')->nullable();
+            $table->string('vacancy_id')->nullable();
+            $table->string('vacancy_name')->nullable();
+            $table->string('name')->nullable();
+            $table->string('title')->nullable();
+            $table->string('area')->nullable();
+            $table->integer('age')->nullable();
+            $table->string('gender')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('email')->nullable();
         });
     }
 

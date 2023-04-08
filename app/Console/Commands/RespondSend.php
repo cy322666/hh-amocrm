@@ -36,29 +36,55 @@ class RespondSend extends Command
     public function handle(): int
     {
         try {
-            $respond = Respond::query()
-                ->find($this->argument('respond'));
 
-            $amoApi = (new Client(Account::query()
-                ->first()))
-                ->init();
+            $respond = Respond::query()->find($this->argument('respond'));
 
-            $contact = Contacts::search([], $amoApi) ?? Contacts::create($amoApi, '');
+            $resume = (new \App\Services\HH\Client(
+                Account::query()
+                    ->where('name', 'hh')
+                    ->first()
+            ))->resume($respond->resume_id);
 
-            $lead = Leads::create($contact, [], '');
+            $respond = $respond->fill([
+                'name' => $resume['first_name'].' '.$resume['last_name'].' '.$resume['middle_name'],
+                'area' => $resume['area']['name'],
+                'age'  => $resume['age'],
+                'email'  => $resume['contact'][1]['value'] ?? null,
+                'title'  => $resume['title'],
+                'phone'  => $resume['contact'][0]['value']['formatted'] ?? null,
+                'status' => Respond::STATUS_WAIT,
+                'gender' => $resume['gender']['name'],
+            ]);
+
+            $amoApi = (new Client(
+                Account::query()
+                    ->where('name', 'amocrm')
+                    ->first()
+                ))->init();
+
+            $contact = Contacts::search([
+                'Телефоны' => [$respond->phone],
+                'Почта'    => $respond->email,
+            ], $amoApi) ?? Contacts::create($amoApi, $respond->name);
+
+            $lead = Leads::create($contact, [], $respond->title);
+            $lead->cf('Возраст')->setValue($respond->age);
+            $lead->cf('Город')->setValue($respond->area);
+            $lead->cf('Пол')->setValue($respond->gender);
+            $lead->save();
 
             $respond->lead_id = $lead->id;
             $respond->contact_id = $contact->id;
-            $respond->save();
-            //TODO
+            $respond->status = Respond::STATUS_SEND;
 
         } catch (Throwable $e) {
 
             Log::error(__METHOD__, [$e->getMessage().' '.$e->getFile().' '.$e->getLine()]);
 
-            return CommandAlias::INVALID;
-        }
+            $respond->status = Respond::STATUS_FAIL;
 
-        return CommandAlias::SUCCESS;
+        } finally {
+            $respond->save();
+        }
     }
 }

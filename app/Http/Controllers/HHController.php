@@ -11,9 +11,15 @@ class HHController extends Controller
 {
     public function hook(Request $request)
     {
-        Log::info(__METHOD__, $request->toArray());
-//        $respond = Respond::query()->create($request->toArray());
-//
+        $respond = Respond::query()->firstOrCreate([
+            'webhook_id' => $request->id
+        ], [
+            'body'       => json_encode($request->toArray()),
+            'vacancy_id' => $request->payload['vacancy_id'],
+            'resume_id'  => $request->payload['resume_id'],
+            'status'     => Respond::STATUS_CREATE,
+        ]);
+
 //        RespondSend::dispatch($respond);
     }
 
