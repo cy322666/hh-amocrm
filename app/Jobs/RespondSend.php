@@ -18,6 +18,6 @@ class RespondSend implements ShouldQueue
 
     public function handle()
     {
-        Artisan::call('hh:respond-send', [$this->respond->id]);
+        Artisan::call('hh:respond-send', ['respond' => $this->respond->id]);
     }
 }
