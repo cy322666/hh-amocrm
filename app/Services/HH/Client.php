@@ -17,11 +17,6 @@ class Client
     private static string $baseUrl = 'https://api.hh.ru';
     private string $access_token;
     private string $refresh_token;
-//    private string $client_id;
-//    private string $client_secret;
-//    private string $redirect_uri;
-//    private string $token_type;
-//    private int $expires_in;
 
     private Model $account;
     private \GuzzleHttp\Client $client;
@@ -30,11 +25,6 @@ class Client
     {
         $this->access_token  = $account->access_token;
         $this->refresh_token = $account->refresh_token;
-//        $this->client_id     = $account->client_id;
-//        $this->client_secret = $account->client_secret;
-//        $this->redirect_uri  = $account->redirect_uri;
-//        $this->token_type    = $account->token_type ?? 'bearer';
-//        $this->expires_in    = $account->expires_in;
 
         $this->account = $account;
         $this->client  = new \GuzzleHttp\Client();
@@ -61,7 +51,7 @@ class Client
      */
     public function unsorted(int $vacancy_id) : array
     {
-        return $this->get('/negotiations/response?vacancy_id='.$vacancy_id, []);//created_at order?
+        return $this->get('/negotiations/response?vacancy_id='.$vacancy_id, []);
     }
 
     /**

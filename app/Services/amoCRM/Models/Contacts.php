@@ -21,7 +21,7 @@ abstract class Contacts extends Client
 //            }
         }
 
-        if ($contacts == null || $contacts->first() == null) {
+        if ($contacts == false || $contacts->first() == null) {
 
             if(key_exists('Почта', $arrayFields)) {
 
@@ -31,11 +31,7 @@ abstract class Contacts extends Client
             }
         }
 
-        if ($contacts !== null && $contacts->first() !== null) {
-            return $contacts->first();
-        }
-
-        return null;
+        return ($contacts->count() > 0) ? $contacts->first() : null;
     }
 
     public static function update($contact, $arrayFields = [])

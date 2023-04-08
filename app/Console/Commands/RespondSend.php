@@ -30,10 +30,8 @@ class RespondSend extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return int
      */
-    public function handle(): int
+    public function handle()
     {
         try {
 
@@ -68,6 +66,10 @@ class RespondSend extends Command
                 'Телефоны' => [$respond->phone],
                 'Почта'    => $respond->email,
             ], $amoApi) ?? Contacts::create($amoApi, $respond->name);
+
+            $contact->cf('Телефон')->setValue($respond->phone);
+            $contact->cf('Email')->setValue($respond->email);
+            $contact->save();
 
             $lead = Leads::create($contact, [], $respond->title);
             $lead->cf('Возраст')->setValue($respond->age);

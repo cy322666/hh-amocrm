@@ -23,6 +23,8 @@ class Respond extends Model
         'gender',
         'phone',
         'email',
+        'lead_id',
+        'contact_id',
     ];
 
     const STATUS_CREATE = 0;

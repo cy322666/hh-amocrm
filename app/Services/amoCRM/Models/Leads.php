@@ -6,6 +6,8 @@ namespace App\Services\amoCRM\Models;
 
 use App\Services\amoCRM\Client;
 use Illuminate\Support\Facades\Log;
+use Ufee\Amo\Models\Contact;
+use Ufee\Amo\Models\Lead;
 
 abstract class Leads
 {
@@ -53,7 +55,7 @@ abstract class Leads
         }
     }
 
-    public static function create($contact, array $params, string $leadname)
+    public static function create(Contact $contact, array $params, string $leadname): Lead
     {
         $lead = $contact->createLead();
 
