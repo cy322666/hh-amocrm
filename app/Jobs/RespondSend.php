@@ -21,7 +21,10 @@ class RespondSend implements ShouldQueue
     {
         Log::info(__METHOD__.' > start');
 
-        Artisan::command("hh:respond-send $this->respond->id", function () {});
+        Artisan::command("hh:respond-send $this->respond->id", function (string $respondId) {
+
+            Log::info(__METHOD__.' '.$respondId);
+        });
 
         Log::info(__METHOD__.' > finish');
     }
