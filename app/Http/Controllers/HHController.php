@@ -20,7 +20,7 @@ class HHController extends Controller
             'status'     => Respond::STATUS_CREATE,
         ]);
 
-//        RespondSend::dispatch($respond);
+        RespondSend::dispatch($respond);
     }
 
     public function redirect(Request $request)
