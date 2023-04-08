@@ -39,11 +39,13 @@ class RespondSend extends Command
 
             $respond = Respond::query()->find($this->argument('respond'));
 
-            $resume = (new \App\Services\HH\Client(
+            $hhApi = (new \App\Services\HH\Client(
                 Account::query()
                     ->where('name', 'hh')
                     ->first()
-            ))->resume($respond->resume_id);
+            ));
+
+            $resume = $hhApi->resume($respond->resume_id);
 
             $respond = $respond->fill([
                 'name' => $resume['first_name'].' '.$resume['last_name'].' '.$resume['middle_name'],
