@@ -83,7 +83,6 @@ class Client
      */
     private function get(string $url, array $params = []) : array
     {
-        try {
             $response = $this->client->get(static::$baseUrl.$url, [
                 'headers' => [
                     'Authorization' => 'Bearer '.$this->access_token,
@@ -92,18 +91,15 @@ class Client
 
             return json_decode($response->getBody()->getContents(), true);
 
-        } catch (GuzzleException $exception) {
 
-            return [];
-
-        } catch (\Throwable $exception) {
-
-            Log::error(__METHOD__, [$exception->getMessage()]);
-
-            $this->auth();
-
-            return $this->get($url, $params);
-        }
+//        } catch (\Throwable $exception) {
+//
+//            Log::error(__METHOD__, [$exception->getMessage()]);
+//
+//            $this->auth();
+//
+//            return $this->get($url, $params);
+//        }
     }
 
     /**

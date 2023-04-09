@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Models\Respond;
+use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -15,6 +16,8 @@ class RespondSend implements ShouldQueue, ShouldBeUnique
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    public int $tries = 3;
+
     public function __construct(public Respond $respond) {}
 
     public function uniqueId()
@@ -24,6 +27,13 @@ class RespondSend implements ShouldQueue, ShouldBeUnique
 
     public function handle()
     {
-        Artisan::call('hh:respond-send', ['respond' => $this->respond->id]);
+        try {
+
+            Artisan::call('hh:respond-send', ['respond' => $this->respond->id]);
+
+        } catch (GuzzleException $e) {
+
+            $this->fail($e);
+        }
     }
 }

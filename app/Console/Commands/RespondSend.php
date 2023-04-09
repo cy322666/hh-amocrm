@@ -46,11 +46,6 @@ class RespondSend extends Command
 
             $resume = $hhApi->resume($respond->resume_id);
 
-            if (count($resume) == 0) {
-
-                return;
-            }
-
             $respond = $respond->fill([
                 'name' => $resume['first_name'].' '.$resume['last_name'].' '.$resume['middle_name'],
                 'area' => $resume['area']['name'] ?? null,
