@@ -34,7 +34,7 @@ class RespondSend extends Command
      */
     public function handle()
     {
-        try {
+//        try {
 
             $respond = Respond::query()->find($this->argument('respond'));
 
@@ -81,15 +81,16 @@ class RespondSend extends Command
             $respond->lead_id = $lead->id;
             $respond->contact_id = $contact->id;
             $respond->status = Respond::STATUS_SEND;
-
-        } catch (Throwable $e) {
-
-            Log::error(__METHOD__, [$e->getMessage().' '.$e->getFile().' '.$e->getLine()]);
-
-            $respond->status = Respond::STATUS_FAIL;
-
-        } finally {
             $respond->save();
-        }
+
+//        } catch (Throwable $e) {
+//
+//            Log::error(__METHOD__, [$e->getMessage().' '.$e->getFile().' '.$e->getLine()]);
+//
+//            $respond->status = Respond::STATUS_FAIL;
+//
+//        } finally {
+//            $respond->save();
+//        }
     }
 }
