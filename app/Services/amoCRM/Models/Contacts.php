@@ -10,15 +10,11 @@ abstract class Contacts extends Client
     {
         $contacts = null;
 
-        if(key_exists('Телефоны', $arrayFields)) {
-
-//            foreach ($arrayFields['Телефоны'] as $phone) {
+        if(key_exists('Телефоны', $arrayFields) && !empty($arrayFields['Телефоны'][0])) {
 
             $contacts = $client->service
                 ->contacts()
                 ->searchByPhone(self::clearPhone($arrayFields['Телефоны'][0]));
-
-//            }
         }
 
         if ($contacts == false || $contacts->first() == null) {
