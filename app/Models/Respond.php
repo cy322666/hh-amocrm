@@ -31,4 +31,17 @@ class Respond extends Model
     const STATUS_WAIT = 1;
     const STATUS_SEND = 2;
     const STATUS_FAIL = 3;
+
+    public static function getContact(?array $arrayData) : ?string
+    {
+        if ($arrayData !== null) {
+
+            if (!empty($arrayData['formatted'])) {
+
+                return $arrayData['value']['formatted'];
+            } else
+                return $arrayData['value'];
+        }
+        return null;
+    }
 }
