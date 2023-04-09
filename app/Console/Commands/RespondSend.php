@@ -7,6 +7,7 @@ use App\Models\Respond;
 use App\Services\amoCRM\Client;
 use App\Services\amoCRM\Models\Contacts;
 use App\Services\amoCRM\Models\Leads;
+use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
 use Symfony\Component\Console\Command\Command as CommandAlias;
@@ -45,7 +46,10 @@ class RespondSend extends Command
 
             $resume = $hhApi->resume($respond->resume_id);
 
+            if (count($resume) == 0) {
 
+                return;
+            }
 
             $respond = $respond->fill([
                 'name' => $resume['first_name'].' '.$resume['last_name'].' '.$resume['middle_name'],

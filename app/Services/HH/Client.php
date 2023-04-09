@@ -92,6 +92,10 @@ class Client
 
             return json_decode($response->getBody()->getContents(), true);
 
+        } catch (GuzzleException $exception) {
+
+            return [];
+
         } catch (\Throwable $exception) {
 
             Log::error(__METHOD__, [$exception->getMessage()]);
