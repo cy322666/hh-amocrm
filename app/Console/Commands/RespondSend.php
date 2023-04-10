@@ -45,14 +45,14 @@ class RespondSend extends Command
             ));
 
             $resume = $hhApi->resume($respond->resume_id);
-
+dd($resume['contact']);
             $respond = $respond->fill([
                 'name' => $resume['first_name'].' '.$resume['last_name'].' '.$resume['middle_name'],
                 'area' => $resume['area']['name'] ?? null,
                 'age'  => $resume['age'],
-                'email'  => Respond::getContact($resume['contact'][0]['value'] ?? $resume['contact'][1]['value']),
+                'email'  => Respond::getContactEmail($resume['contact']),
                 'title'  => $resume['title'],
-                'phone'  => Respond::getContact($resume['contact'][0]['value']['formatted'] ?? $resume['contact'][1]['value']['formatted']),
+                'phone'  => Respond::getContactPhone($resume['contact']),
                 'status' => Respond::STATUS_WAIT,
                 'gender' => $resume['gender']['name'],
             ]);

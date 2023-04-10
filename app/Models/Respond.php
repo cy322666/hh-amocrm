@@ -32,21 +32,27 @@ class Respond extends Model
     const STATUS_SEND = 2;
     const STATUS_FAIL = 3;
 
-    public static function getContact($arrayData) : ?string
+    public static function getContactEmail($arrayData) : ?string
     {
-        if ($arrayData !== null) {
+        if (!empty($arrayData[0]) && $arrayData[0]['type']['name'] !== "Мобильный телефон") {
 
-            if (is_string($arrayData) == true) {
-
-                $arrayData = json_decode($arrayData, true);
-            }
-
-            if (!empty($arrayData['formatted'])) {
-
-                return $arrayData['formatted'];
-            } elseif (!empty($arrayData['value']))
-                return $arrayData['value'];
+            return $arrayData[0]['value'];
         }
-        return null;
+        if (!empty($arrayData[1]) && $arrayData[1]['type']['name'] !== "Мобильный телефон") {
+
+            return $arrayData[1]['value'];
+        }
+    }
+
+    public static function getContactPhone($arrayData) : ?string
+    {
+        if (!empty($arrayData[0]) && $arrayData[0]['type']['name'] == "Мобильный телефон") {
+
+            return $arrayData[0]['value'];
+        }
+        if (!empty($arrayData[1]) && $arrayData[1]['type']['name'] == "Мобильный телефон") {
+
+            return $arrayData[1]['value'];
+        }
     }
 }
