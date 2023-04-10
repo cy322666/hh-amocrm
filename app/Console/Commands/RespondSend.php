@@ -82,6 +82,11 @@ class RespondSend extends Command
             $lead->cf('Город')->setValue($respond->area);
             $lead->cf('Пол')->setValue($respond->gender);
             $lead->cf('Резюме')->setValue($respond->title);
+
+            if ($respond->vacancy_name == 'Водитель категории В') {
+
+                $lead->attachTag('водитель');
+            }
             $lead->save();
 
             $respond->lead_id = $lead->id;
