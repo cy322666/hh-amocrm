@@ -48,11 +48,11 @@ class Respond extends Model
     {
         if (!empty($arrayData[0]) && $arrayData[0]['type']['name'] == "Мобильный телефон") {
 
-            return $arrayData[0]['value'];
+            return $arrayData[0]['value']['country'].$arrayData[0]['value']['city'].$arrayData[0]['value']['number'];
         }
         if (!empty($arrayData[1]) && $arrayData[1]['type']['name'] == "Мобильный телефон") {
 
-            return $arrayData[1]['value'];
+            return $arrayData[1]['value']['country'].$arrayData[1]['value']['city'].$arrayData[1]['value']['number'];
         }
     }
 }
