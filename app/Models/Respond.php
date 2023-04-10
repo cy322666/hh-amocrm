@@ -44,7 +44,7 @@ class Respond extends Model
             if (!empty($arrayData['formatted'])) {
 
                 return $arrayData['formatted'];
-            } else
+            } elseif (!empty($arrayData['value']))
                 return $arrayData['value'];
         }
         return null;
