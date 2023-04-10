@@ -42,6 +42,7 @@ class Respond extends Model
 
             return $arrayData[1]['value'];
         }
+        return null;
     }
 
     public static function getContactPhone($arrayData) : ?string
@@ -54,5 +55,6 @@ class Respond extends Model
 
             return $arrayData[1]['value']['country'].$arrayData[1]['value']['city'].$arrayData[1]['value']['number'];
         }
+        return null;
     }
 }

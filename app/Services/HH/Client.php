@@ -49,6 +49,14 @@ class Client
     /**
      * @throws GuzzleException
      */
+    public function vacancy(int $vacancy_id) : array
+    {
+        return $this->get('/vacancies/'.$vacancy_id, []);
+    }
+
+    /**
+     * @throws GuzzleException
+     */
     public function unsorted(int $vacancy_id) : array
     {
         return $this->get('/negotiations/response?vacancy_id='.$vacancy_id, []);

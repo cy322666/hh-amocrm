@@ -46,6 +46,8 @@ class RespondSend extends Command
 
             $resume = $hhApi->resume($respond->resume_id);
 
+            $vacancy = $hhApi->vacancy($respond->vacancy_id);
+
             $respond = $respond->fill([
                 'name' => $resume['first_name'].' '.$resume['last_name'].' '.$resume['middle_name'],
                 'area' => $resume['area']['name'] ?? null,
@@ -55,6 +57,7 @@ class RespondSend extends Command
                 'phone'  => Respond::getContactPhone($resume['contact']),
                 'status' => Respond::STATUS_WAIT,
                 'gender' => $resume['gender']['name'],
+                'vacancy_name' => $vacancy['name'],
             ]);
 
             $amoApi = (new Client(
@@ -72,10 +75,13 @@ class RespondSend extends Command
             $contact->cf('Email')->setValue($respond->email);
             $contact->save();
 
-            $lead = Leads::create($contact, [], $respond->title);
+            $lead = Leads::create($contact, [], $respond->vacancy_name);
             $lead->cf('Возраст')->setValue($respond->age);
+            $lead->cf('Ссылка вакансии')->setValue($vacancy['alternate_url']);
+            $lead->cf('Ссылка резюме')->setValue($resume['alternate_url']);
             $lead->cf('Город')->setValue($respond->area);
             $lead->cf('Пол')->setValue($respond->gender);
+            $lead->cf('Резюме')->setValue($respond->title);
             $lead->save();
 
             $respond->lead_id = $lead->id;
