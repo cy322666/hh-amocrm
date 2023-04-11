@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Log;
 
 class Respond extends Model
 {
@@ -36,9 +37,13 @@ class Respond extends Model
     {
         if (!empty($arrayData[0]) && $arrayData[0]['type']['name'] !== "Мобильный телефон") {
 
+            Log::info(__METHOD__, $arrayData[0]);
+
             return $arrayData[0]['value'];
         }
         if (!empty($arrayData[1]) && $arrayData[1]['type']['name'] !== "Мобильный телефон") {
+
+            Log::info(__METHOD__, $arrayData[1]);
 
             return $arrayData[1]['value'];
         }
@@ -49,9 +54,13 @@ class Respond extends Model
     {
         if (!empty($arrayData[0]) && $arrayData[0]['type']['name'] == "Мобильный телефон") {
 
+            Log::info(__METHOD__, $arrayData[0]);
+
             return $arrayData[0]['value']['country'].$arrayData[0]['value']['city'].$arrayData[0]['value']['number'];
         }
         if (!empty($arrayData[1]) && $arrayData[1]['type']['name'] == "Мобильный телефон") {
+
+            Log::info(__METHOD__, $arrayData[1]);
 
             return $arrayData[1]['value']['country'].$arrayData[1]['value']['city'].$arrayData[1]['value']['number'];
         }
