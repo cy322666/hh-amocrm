@@ -35,13 +35,13 @@ class Respond extends Model
 
     public static function getContactEmail($arrayData) : ?string
     {
-        if (!empty($arrayData[0]) && $arrayData[0]['type']['name'] !== "Мобильный телефон" && $arrayData[0]['type']['name'] !== "Рабочий телефон") {
+        if (!empty($arrayData[0]) && $arrayData[0]['type']['name'] == "Эл. почта") {
 
             Log::info(__METHOD__, $arrayData[0]);
 
             return $arrayData[0]['value'];
         }
-        if (!empty($arrayData[1]) && $arrayData[1]['type']['name'] !== "Мобильный телефон" && $arrayData[1]['type']['name'] !== "Рабочий телефон") {
+        if (!empty($arrayData[1]) && $arrayData[1]['type']['name'] == "Эл. почта") {
 
             Log::info(__METHOD__, $arrayData[1]);
 
@@ -52,13 +52,13 @@ class Respond extends Model
 
     public static function getContactPhone($arrayData) : ?string
     {
-        if (!empty($arrayData[0]) && $arrayData[0]['type']['name'] == ("Мобильный телефон" || "Рабочий телефон")) {
+        if (!empty($arrayData[0]) && $arrayData[0]['type']['name'] !== "Эл. почта") {
 
             Log::info(__METHOD__, $arrayData[0]);
 
             return $arrayData[0]['value']['country'].$arrayData[0]['value']['city'].$arrayData[0]['value']['number'];
         }
-        if (!empty($arrayData[1]) && $arrayData[1]['type']['name'] == ("Мобильный телефон" || "Рабочий телефон")) {
+        if (!empty($arrayData[1]) && $arrayData[1]['type']['name'] !== "Эл. почта") {
 
             Log::info(__METHOD__, $arrayData[1]);
 
