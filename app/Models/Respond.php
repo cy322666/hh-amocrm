@@ -37,13 +37,13 @@ class Respond extends Model
     {
         if (!empty($arrayData[0]) && $arrayData[0]['type']['name'] == "Эл. почта") {
 
-            Log::info(__METHOD__, $arrayData[0]);
+//            Log::info(__METHOD__, $arrayData[0]);
 
             return $arrayData[0]['value'];
         }
         if (!empty($arrayData[1]) && $arrayData[1]['type']['name'] == "Эл. почта") {
 
-            Log::info(__METHOD__, $arrayData[1]);
+//            Log::info(__METHOD__, $arrayData[1]);
 
             return $arrayData[1]['value'];
         }
@@ -54,13 +54,13 @@ class Respond extends Model
     {
         if (!empty($arrayData[0]) && $arrayData[0]['type']['name'] !== "Эл. почта") {
 
-            Log::info(__METHOD__, $arrayData[0]);
+//            Log::info(__METHOD__, $arrayData[0]);
 
             return $arrayData[0]['value']['country'].$arrayData[0]['value']['city'].$arrayData[0]['value']['number'];
         }
         if (!empty($arrayData[1]) && $arrayData[1]['type']['name'] !== "Эл. почта") {
 
-            Log::info(__METHOD__, $arrayData[1]);
+//            Log::info(__METHOD__, $arrayData[1]);
 
             return $arrayData[1]['value']['country'].$arrayData[1]['value']['city'].$arrayData[1]['value']['number'];
         }
