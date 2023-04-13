@@ -44,7 +44,20 @@ class RespondSend extends Command
                     ->first()
             ));
 
-            $resume = $hhApi->resume($respond->resume_id);
+            try {
+                $resume = $hhApi->resume($respond->resume_id);
+
+            } catch (Throwable $e) {
+
+                $hhApi = (new \App\Services\HH\Client(
+                    Account::query()
+                        ->where('name', 'hh')
+                        ->where('subdomain', '2')
+                        ->first()
+                ));
+
+                $resume = $hhApi->resume($respond->resume_id);
+            }
 
             $vacancy = $hhApi->vacancy($respond->vacancy_id);
 
