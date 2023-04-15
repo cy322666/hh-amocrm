@@ -16,9 +16,9 @@ class RespondSend implements ShouldQueue, ShouldBeUnique
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public int $backoff = 5;
+    public int $backoff = 10;
 
-    public int $tries = 3;
+    public int $tries = 1;
 
     public function __construct(public Respond $respond) {}
 
