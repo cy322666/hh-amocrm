@@ -35,11 +35,6 @@ class Client
      */
     public function init(): Client
     {
-        if (!$this->storage->model->subdomain) {
-
-            return $this;
-        }
-
         $this->service = Oauthapi::setInstance([
             'domain'        => $this->storage->model->subdomain,
             'client_id'     => $this->storage->model->client_id,
