@@ -72,6 +72,7 @@ class RespondSend extends Command
                 'status' => Respond::STATUS_WAIT,
                 'gender' => $resume['gender']['name'],
                 'vacancy_name' => $vacancy['name'],
+                'manager_id' => $vacancy['manager']['id']
             ]);
 
             $amoApi = (new Client(

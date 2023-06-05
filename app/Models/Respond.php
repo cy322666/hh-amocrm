@@ -26,6 +26,7 @@ class Respond extends Model
         'email',
         'lead_id',
         'contact_id',
+        'manager_id',
     ];
 
     const STATUS_CREATE = 0;

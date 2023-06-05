@@ -137,7 +137,7 @@ class Client
      * @throws GuzzleException
      * @throws Exception
      */
-    private function auth()
+    public function auth()
     {
         $response = $this->client->post('https://hh.ru/oauth/token?grant_type=refresh_token&refresh_token='.$this->refresh_token, []);
 
