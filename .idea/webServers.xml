@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="5e6bac6a-baf7-4add-afa2-7cd3ba80f2d3" name="hh-amocrm">
+        <fileTransfer accessType="SFTP" host="185.20.225.107" port="22" sshConfigId="58236f58-8f26-4bef-89e9-54b07a563d12" sshConfig="hh-amocrm@prod">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

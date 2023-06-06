@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SshConfigs">
+    <configs>
+      <sshConfig authType="PASSWORD" host="185.20.225.107" id="58236f58-8f26-4bef-89e9-54b07a563d12" port="22" customName="hh-amocrm@prod" nameFormat="CUSTOM" username="root" useOpenSSHConfig="true">
+        <option name="customName" value="hh-amocrm@prod" />
+      </sshConfig>
+    </configs>
+  </component>
+</project>
