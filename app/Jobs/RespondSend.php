@@ -24,12 +24,14 @@ class RespondSend implements ShouldQueue, ShouldBeUnique
 
     public function uniqueId()
     {
-        return $this->respond->id;
+        return $this->respond->status;
     }
 
     public function handle()
     {
         try {
+
+            sleep(1);
 
             Artisan::call('hh:respond-send', ['respond' => $this->respond->id]);
 

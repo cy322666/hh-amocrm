@@ -31,7 +31,7 @@ class RespondSend extends Command
 
     /**
      * Execute the console command.
-     * @throws \Exception
+     * @throws \Exception|GuzzleException
      */
     public function handle()
     {
@@ -57,8 +57,16 @@ class RespondSend extends Command
                         ->first()
                 ));
 
-                $resume = $hhApi->resume($respond->resume_id);
+                try {
+
+                    $resume = $hhApi->resume($respond->resume_id);
+                } catch (Throwable $e) {
+
+                    return 1;
+                }
             }
+
+            if (!$resume) exit;
 
             $vacancy = $hhApi->vacancy($respond->vacancy_id);
 
@@ -70,10 +78,11 @@ class RespondSend extends Command
                 'title'  => $resume['title'],
                 'phone'  => Respond::getContactPhone($resume['contact']),
                 'status' => Respond::STATUS_WAIT,
-                'gender' => $resume['gender']['name'],
+                'gender' => $resume['gender']['name'] ?? null,
                 'vacancy_name' => $vacancy['name'],
-                'manager_id' => $vacancy['manager']['id']
+                'manager_id' => (int)$vacancy['manager']['id']
             ]);
+            $respond->save();
 
             $amoApi = (new Client(
                 Account::query()

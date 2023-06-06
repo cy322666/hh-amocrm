@@ -47,6 +47,7 @@ class GetManagers extends Command
                 "middle_name" => $manager['middle_name'],
                 "position"    => $manager['position'],
                 "email"       => $manager['email'],
+                "manager_id"  => $manager['id'],
             ]);
         }
 

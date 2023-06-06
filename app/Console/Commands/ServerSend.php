@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Manager;
 use App\Models\Respond;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
@@ -17,10 +18,11 @@ class ServerSend extends Command
      */
     protected $signature = 'hh:server-send';
 
-    private static string $urlServer = 'https://hub.blackclever.ru';
-
     private static array $pathFiles = [
-        '/voditel-kurer.json',
+        'voditel-kurer',
+        'sborshchik-kurer',
+        'sborshchik-zakazov',
+        'sborshchik-kurer-avto',
     ];
 
     private static int $countGetResponds = 2;
@@ -37,12 +39,12 @@ class ServerSend extends Command
      *
      * @return int
      */
-    public function handle()
+    public function handle(): int
     {
         foreach (static::$pathFiles as $path) {
 
             $file = json_decode(
-                file_get_contents(static::$urlServer.$path),
+                file_get_contents('/'.$path.'.json'),
                 true
             );
 
@@ -57,8 +59,14 @@ class ServerSend extends Command
 
             if ($lastFileId !== $lastDBId) {
 
+                $managerId = Manager::query()
+                    ->where('type', $path)
+                    ->first()
+                    ->manager_id;
+
                 $respondsCollection = Respond::query()
                     ->where('id', '>', $lastFileId)
+                    ->where('manager_id', $managerId)
                     ->limit(static::$countGetResponds)
                     ->get(['id', 'name', 'title', 'area', 'phone']);
 

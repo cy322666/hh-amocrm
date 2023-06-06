@@ -27,7 +27,7 @@ abstract class Contacts extends Client
             }
         }
 
-        return ($contacts->count() > 0) ? $contacts->first() : null;
+        return ($contacts && $contacts->count() > 0) ? $contacts->first() : null;
     }
 
     public static function update($contact, $arrayFields = [])
