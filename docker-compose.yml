@@ -1,0 +1,13 @@
+version: '3.5'
+
+services:
+    app:
+        build: ./docker/images/php81
+        volumes:
+            - ./application:/var/www/html
+            - ./docker/images/php81/files/php/php.ini:/usr/local/etc/php/conf.d/php.ini
+        ports:
+            - "6050:8000"
+        links:
+            - postgresql
+        working_dir: /var/www/html
