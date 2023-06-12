@@ -50,19 +50,40 @@ class RespondSend extends Command
 
             } catch (Throwable $e) {
 
-                $hhApi = (new \App\Services\HH\Client(
-                    Account::query()
-                        ->where('name', 'hh')
-                        ->where('subdomain', '2')
-                        ->first()
-                ));
+                if ($e->getCode() == 404) {
+
+                    $respond->status = Respond::STATUS_FAIL;
+                    $respond->save();
+
+                    return 1;
+                }
+
+                $hhApi->auth();
 
                 try {
 
                     $resume = $hhApi->resume($respond->resume_id);
+
                 } catch (Throwable $e) {
 
-                    return 1;
+                    $hhApi = (new \App\Services\HH\Client(
+                        Account::query()
+                            ->where('name', 'hh')
+                            ->where('subdomain', '2')
+                            ->first()
+                    ));
+
+                    try {
+
+                        $resume = $hhApi->resume($respond->resume_id);
+                    } catch (Throwable $e) {
+
+                        $hhApi->auth();
+
+                        $resume = $hhApi->resume($respond->resume_id);
+
+                        return 1;
+                    }
                 }
             }
 

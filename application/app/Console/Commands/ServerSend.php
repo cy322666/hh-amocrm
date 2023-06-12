@@ -48,21 +48,22 @@ class ServerSend extends Command
                 true
             );
 
-            $arrayResponds = $file[1];
+            $arrayResponds = $file[1];//[0] -> url [1] -> [][][]
 
             $lastFileId = end($arrayResponds)['id'] ?? 1;
 
+            $managerId = Manager::query()
+                ->where('type', $path)
+                ->first()
+                ->manager_id;
+
             $lastDBId = Respond::query()
+                ->where('manager_id', $managerId)
                 ->latest('id')
                 ->first()
                 ->id;
 
             if ($lastFileId !== $lastDBId) {
-
-                $managerId = Manager::query()
-                    ->where('type', $path)
-                    ->first()
-                    ->manager_id;
 
                 $respondsCollection = Respond::query()
                     ->where('id', '>', $lastFileId)
@@ -84,8 +85,8 @@ class ServerSend extends Command
                     }
 
                     $fileData = json_encode([
-                        $file[0],
-                        array_merge($preparedResponds, $arrayResponds)
+                        $file[0],//[0] -> url
+                        array_merge($preparedResponds, $arrayResponds) //[1] [][][]
                     ], JSON_UNESCAPED_SLASHES);//
 
                     $fd = fopen("test.json", 'w');

@@ -148,7 +148,7 @@ class Client
             Log::info(__METHOD__, $array_body);
 
             $this->account->access_token  = $array_body['access_token'];
-            $this->account->token_type    = $array_body['token_type'];
+//            $this->account->token_type    = $array_body['token_type'];
             $this->account->expires_in    = $array_body['expires_in'];
             $this->account->refresh_token = $array_body['refresh_token'];
             $this->account->save();

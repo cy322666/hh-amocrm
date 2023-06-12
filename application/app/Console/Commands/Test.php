@@ -32,17 +32,15 @@ class Test extends Command
      */
     public function handle()
     {
-        $responds = Respond::query()
+        $respond = Respond::query()
             ->where('lead_id', null)
             ->where('created_at', '>', '2023-06-06 00:26:52')
-            ->get();
+            ->first();
 
-        foreach ($responds as $respond) {
+//        foreach ($responds as $respond) {
 
             Artisan::call('hh:respond-send '.$respond->id);
-
-            sleep(2);
-        }
+//        }
 
         return CommandAlias::SUCCESS;
     }
