@@ -16,5 +16,6 @@ class Manager extends Model
         "position",
         "email",
         'manager_id',
+        'account_id',
     ];
 }

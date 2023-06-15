@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('hh/hook', [HHController::class, 'hook']);
+Route::post('hh/1/hook', [HHController::class, 'hook1']);
+
+Route::post('hh/2/hook', [HHController::class, 'hook2']);
 
 Route::any('hh/redirect', [HHController::class, 'redirect']);

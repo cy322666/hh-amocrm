@@ -18,6 +18,7 @@ class Respond extends Model
         'vacancy_id',
         'vacancy_name',
         'name',
+        'app_id',
         'title',
         'area',
         'age',
@@ -55,9 +56,10 @@ class Respond extends Model
     {
         if (!empty($arrayData[0]) && $arrayData[0]['type']['name'] !== "Эл. почта") {
 
-//            Log::info(__METHOD__, $arrayData[0]);
+            if ($arrayData[0]['value'] !== null) {
 
-            return $arrayData[0]['value']['country'].$arrayData[0]['value']['city'].$arrayData[0]['value']['number'];
+                return $arrayData[0]['value']['country'].$arrayData[0]['value']['city'].$arrayData[0]['value']['number'];
+            }
         }
         if (!empty($arrayData[1]) && $arrayData[1]['type']['name'] !== "Эл. почта") {
 

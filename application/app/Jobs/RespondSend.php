@@ -20,11 +20,14 @@ class RespondSend implements ShouldQueue, ShouldBeUnique
 
     public int $tries = 1;
 
-    public function __construct(public Respond $respond) {}
+    public function __construct(
+        public Respond $respond,
+        public int $app
+    ) {}
 
     public function uniqueId()
     {
-        return $this->respond->status;
+        return $this->respond->app_id;
     }
 
     public function handle()
@@ -33,9 +36,12 @@ class RespondSend implements ShouldQueue, ShouldBeUnique
 
             sleep(1);
 
-            Artisan::call('hh:respond-send', ['respond' => $this->respond->id]);
+            Artisan::call('hh:respond-send', [
+                'respond' => $this->respond->id,
+                'app'     => $this->app,
+            ]);
 
-        } catch (GuzzleException $e) {
+        } catch (\Throwable $e) {
 
             $this->fail($e);
         }
