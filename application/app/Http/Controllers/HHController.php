@@ -24,7 +24,7 @@ class HHController extends Controller
             'app_id'     => static::$app1,
         ]);
 
-        RespondSend::dispatch($respond, static::$app1);
+        $this->dispatch(new RespondSend($respond, static::$app1));
     }
 
     public function hook2(Request $request)
@@ -39,7 +39,7 @@ class HHController extends Controller
             'app_id'     => static::$app2,
         ]);
 
-        RespondSend::dispatch($respond, static::$app2);
+        $this->dispatch(new RespondSend($respond, static::$app2));
     }
 
     public function redirect(Request $request)
