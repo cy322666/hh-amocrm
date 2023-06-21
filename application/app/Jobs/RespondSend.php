@@ -11,6 +11,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Log;
 
 class RespondSend implements ShouldQueue, ShouldBeUnique
 {
@@ -42,6 +43,8 @@ class RespondSend implements ShouldQueue, ShouldBeUnique
             ]);
 
         } catch (\Throwable $e) {
+
+            Log::error(__METHOD__, [$e->getMessage().' '.$e->getFile().' '.$e->getLine()]);
 
             $this->fail($e);
         }
