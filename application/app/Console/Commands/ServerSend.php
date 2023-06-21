@@ -55,15 +55,15 @@ class ServerSend extends Command
             $managerId = Manager::query()
                 ->where('type', $path)
                 ->first()
-                ->manager_id;
+                ?->manager_id;
 
             $lastDBId = Respond::query()
                 ->where('manager_id', $managerId)
                 ->latest('id')
                 ->first()
-                ->id;
+                ?->id;
 
-            if ($lastFileId !== $lastDBId) {
+            if (($lastFileId !== null && $lastDBId !== null) && ($lastFileId !== $lastDBId)) {
 
                 $respondsCollection = Respond::query()
                     ->where('id', '>', $lastFileId)
