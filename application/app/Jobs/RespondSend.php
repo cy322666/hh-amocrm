@@ -17,7 +17,7 @@ class RespondSend implements ShouldQueue, ShouldBeUnique
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public int $backoff = 10;
+//    public int $backoff = 10;
 
     public int $tries = 1;
 
@@ -26,16 +26,16 @@ class RespondSend implements ShouldQueue, ShouldBeUnique
         public int $app
     ) {}
 
-    public function uniqueId()
-    {
-        return $this->respond->app_id;
-    }
+//    public function uniqueId()
+//    {
+//        return $this->respond->app_id;
+//    }
 
     public function handle()
     {
         try {
 
-            sleep(1);
+//            sleep(1);
 
             Artisan::call('hh:respond-send', [
                 'respond' => $this->respond->id,
