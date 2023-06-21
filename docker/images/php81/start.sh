@@ -3,11 +3,11 @@
 chmod -R 777 storage
 chmod -R 777 vendor
 
-composer install
+#composer install
 #
-php artisan key:generate
+#php artisan key:generate
 
-composer require laravel/octane --with-all-dependencies
+#composer require laravel/octane --with-all-dependencies
 
 #php artisan horizon:install
 
@@ -15,4 +15,4 @@ composer require laravel/octane --with-all-dependencies
 
 php artisan octane:install --server="swoole"
 
-php artisan octane:start --server="swoole" --host="0.0.0.0" --workers=${SWOOLE_WORKERS} --task-workers=${SWOOLE_TASK_WORKERS} --max-requests=${SWOOLE_MAX_REQUESTS} --watch ;
+php artisan octane:start --server="swoole" --host="0.0.0.0" --workers=2 --task-workers=1 --max-requests=300 --watch ;
