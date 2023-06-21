@@ -71,7 +71,7 @@ class ServerSend extends Command
                     ->limit(static::$countGetResponds)
                     ->get(['id', 'name', 'title', 'area', 'phone']);
 
-                if ($respondsCollection->count() > 0) {
+                if ($respondsCollection->count() > 1) {
 
                     foreach ($respondsCollection as $respond) {
 
